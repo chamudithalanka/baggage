@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Item Management System</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Toastify for notifications -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="app-header">
+            <i class="fas fa-box-open header-icon"></i>
+            <h1>Family Item Management</h1>
+        </div>
+        
+        <!-- Username Form -->
+        <div id="usernameSection" class="form-section">
+            <div class="form-steps">
+                <div class="step active" data-step="1">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+            </div>
+
+            <!-- Step 1: Personal Info -->
+            <div id="step1" class="form-step active">
+                <h2><i class="fas fa-user"></i> Personal Information</h2>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter your name">
+                </div>
+                <button onclick="nextStep()" class="btn-primary">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Step 2: Address -->
+            <div id="step2" class="form-step">
+                <h2><i class="fas fa-map-marker-alt"></i> Delivery Address</h2>
+                <div class="input-group">
+                    <i class="fas fa-home"></i>
+                    <input type="text" id="streetAddress" placeholder="Street Address">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-city"></i>
+                    <input type="text" id="city" placeholder="City">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-map"></i>
+                    <input type="text" id="state" placeholder="State/Province">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-globe"></i>
+                    <input type="text" id="country" placeholder="Country">
+                </div>
+                <div class="button-group">
+                    <button onclick="previousStep()" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button onclick="submitUserInfo()" class="btn btn-primary">
+                        Complete <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Form -->
+        <div id="itemSection" class="hidden">
+            <div class="welcome-section">
+                <div class="welcome-message">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="userDisplay">Welcome, Kusalani L!</span>
+                </div>
+                <button onclick="resetUserData()" class="reset-btn" title="Reset User Data">
+                    <i class="fas fa-redo-alt"></i>
+                    Reset
+                </button>
+            </div>
+            
+            <div class="item-form">
+                <div class="input-group">
+                    <i class="fas fa-shopping-bag"></i>
+                    <input type="text" id="itemName" placeholder="Item name">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-sort-numeric-up"></i>
+                    <input type="number" id="itemQuantity" placeholder="Quantity">
+                </div>
+                <button onclick="addItem()" class="btn-primary">
+                    <i class="fas fa-plus"></i> Add Item
+                </button>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-bar-fill"></div>
+                </div>
+                <div class="progress-text">0/5 items</div>
+            </div>
+
+            <div id="itemList" class="item-list"></div>
+
+            <div id="shareSection" class="share-section hidden">
+                <button onclick="submitItems()" class="submit-btn" id="submitButton">
+                    <span class="submit-text">
+                        <i class="fas fa-paper-plane"></i> Submit
+                    </span>
+                    <span class="submit-loading hidden">
+                        <i class="fas fa-circle-notch fa-spin"></i> Submitting...
+                    </span>
+                </button>
+            </div>
+
+            <!-- Add this new warning section instead -->
+            <div class="items-limit-warning">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="warning-text">
+                    Only per person can add 5 items only
+                </div>
+            </div>
+
+            <!-- Add this after the submit button but before the warning message -->
+            <div class="export-section">
+                <button class="export-btn" onclick="exportToPDF()">
+                    <i class="fas fa-file-pdf"></i>
+                    Export as PDF
+                </button>
+                <button class="export-btn" onclick="exportToCSV()">
+                    <i class="fas fa-file-csv"></i>
+                    Export as CSV
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
